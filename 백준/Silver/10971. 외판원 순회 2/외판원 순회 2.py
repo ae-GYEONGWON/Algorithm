@@ -1,32 +1,28 @@
 import sys
-from itertools import permutations
 input = sys.stdin.readline
 
 n = int(input())
+costs = [list(map(int, input().split())) for _ in range(n)]
+visited = [0]* n
+sum_cost = 0
+ans = 100000001
 
-matrix = [list(map(int,input().split())) for _ in range(n)]
-answer = 10000000
-for i in permutations(range(1,n),n-1):
-    num_list = [*i]
-    
-    # 처음과 끝에 1번 도시를 넣는다
-    num_list = [0] + num_list + [0]
+def dfs(depth, x):
+    global sum_cost, ans
+    if depth == n-1:
+        if costs[x][0]:
+            sum_cost += costs[x][0]
+            if sum_cost < ans:
+                ans = sum_cost
+            sum_cost -= costs[x][0]
+        return
+    for i in range(1, n):
+        if visited[i] == 0 and costs[x][i]:
+            visited[i] = 1
+            sum_cost += costs[x][i]
+            dfs(depth+1, i)
+            visited[i] = 0
+            sum_cost -= costs[x][i]
 
-    sub = 0
-    
-    # for else 구문을 사용하여 경로가 없을 때를 제외한다
-    for j in range(n) :
-        cost = matrix[num_list[j]-1][num_list[j+1]-1]
-        if cost == 0 :
-            break
-        else :
-            sub += cost
-    	
-        # 이미 sub가 answer 이상이면 반복문을 멈춘다
-        if sub > answer :
-            break
-            
-    else:
-        if answer > sub:
-            answer = sub
-print(answer)
+dfs(0, 0)
+print(ans)
