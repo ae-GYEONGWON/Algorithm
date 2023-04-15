@@ -1,41 +1,56 @@
 import sys
-from collections import deque
 input = sys.stdin.readline
-queue = deque()
+queue = [0]*2000000
+
+front = 0; rear = 0; size = 0
 
 def q_push(x):
-    queue.append(x)
+    global rear, size, front
+    queue[rear] = x
+    rear += 1
+    size += 1
     return
 
 def q_pop():
+    global rear, size, front
     if q_empty():
         return -1
-    return queue.popleft()
-
+    else:
+        value = queue[front]
+        front += 1
+        size -= 1
+        return value
+        
 def q_size():
-    return len(queue)
+    global rear, size, front
+    return size
 
 def q_empty():
-    if len(queue):
+    global rear, size, front
+    if size:
         return 0
     return 1
 
 def q_front():
+    global rear, size, front
     if q_empty():
         return -1
-    return queue[0]
-
+    else:
+        return queue[front]
+    
 def q_back():
+    global rear, size, front
     if q_empty():
         return -1
-    return queue[-1]
+    else:
+        return queue[rear-1]
 
 n = int(input())
 for _ in range(n):
-    order = input().split()
-    x = order[0]
+    command = input().split()
+    x = command[0]
     if x == 'push':
-        q_push(int(order[1]))
+        q_push(int(command[1]))
     elif x == 'pop':
         print(q_pop())
     elif x == 'size':
