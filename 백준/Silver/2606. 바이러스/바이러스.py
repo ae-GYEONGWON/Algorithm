@@ -1,28 +1,25 @@
+import sys
 from collections import deque
+input = sys.stdin.readline
 
-N = int(input())
-link = int(input())
-
-network = [[] * (N + 1) for _ in range(N + 1)]
-
-for i in range(link):
+n = int(input())
+m = int(input())
+graph = [[0]*(n+1) for _ in range(n+1)]
+for _ in range(m):
     a, b = map(int, input().split())
-    network[a].append(b)
-    network[b].append(a)
+    graph[a][b] = 1
+    graph[b][a] = 1
 
-visited = [0] * (N + 1)
-cnt = 0
+visited = [0]*(n+1)
+ans = 0
+def dfs(x):
+    global ans
+    visited[x] = 1
+    for i in range(len(graph[x])):
+        if graph[x][i] == 1 and visited[i] == 0:
+            visited[i] = 1
+            ans += 1
+            dfs(i)
+    return ans
 
-def bfs (virus):
-    global cnt
-    visited[virus] = 1
-    q = deque([virus])
-    while q:
-        for i in network[q.popleft()]:
-            if visited[i] == 0:
-                visited[i] = 1
-                q.append(i)
-                cnt += 1
-    return cnt
-    
-print(bfs(1))
+print(dfs(1))
