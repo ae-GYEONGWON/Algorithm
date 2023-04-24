@@ -1,34 +1,32 @@
-import sys
 from collections import deque
-
+import sys
 input = sys.stdin.readline
-
-n, m = map(int, input().split())
+N, M = map(int, input().split())
 graph = []
-
-for _ in range(n):
-    graph.append(list(map(int, input().rstrip()))) # readline의 경우 맨 뒤에 '\n'까지 입력받으므로 제거해줘야 함
-
-# 상하좌우
-dx = [-1, 1, 0, 0] 
-dy = [0, 0, -1, 1]
+for _ in range(N):
+    graph.append(list(map(int, input().rstrip())))
+visited = [[0]*(M) for _ in range(N)]
+# print(f'graph : {graph}')
+# print(f'visited : {visited}')
 
 def bfs(x, y):
-    
-    queue = deque()
-    queue.append((x,y))
-
-    while queue:
-        x, y = queue.popleft()
-
+    dx = [0, 0, -1, 1]
+    dy = [-1, 1, 0, 0]
+    coordinate = deque()
+    coordinate.append((x, y))
+    visited[x][y] = 1
+    while coordinate:
+        x, y = coordinate.popleft()
         for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-
-            if 0 <= nx < n and 0 <= ny < m and graph[nx][ny] == 1:
-                queue.append((nx, ny))
-                graph[nx][ny] = graph[x][y] + 1
-    
-    return graph[n-1][m-1]
-
-print(bfs(0,0))
+            nx = x+dx[i]
+            ny = y+dy[i]
+            if nx < 0 or nx >= N or ny < 0 or ny >= M:
+                continue
+            if graph[nx][ny] == 0:
+                continue
+            if visited[nx][ny] == 0:
+                graph[nx][ny] += graph[x][y]
+                visited[nx][ny] = 1
+                coordinate.append((nx, ny))
+    print(graph[-1][-1])
+bfs(0, 0)
