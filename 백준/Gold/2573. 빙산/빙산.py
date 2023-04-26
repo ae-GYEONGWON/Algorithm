@@ -9,6 +9,7 @@ time = 0
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 
+# 빙판 갯수 세는 함수
 def cnt_mnt(graph):
     global n, m
     visited = [[0]*m for _ in range(n)]
@@ -31,6 +32,7 @@ def cnt_mnt(graph):
                 cnt += 1
     return cnt
 
+# 일년 뒤 빙산을 만드는 함수
 def make_next_graph(graph):
     global n, m
     next_graph = [[0]*m for _ in range(n)]
@@ -50,6 +52,7 @@ def make_next_graph(graph):
                 next_graph[i][j] = max(graph[i][j] - cnt, 0)
     return next_graph
 
+# 종료 조건이 맞을 때까지 재귀하는 함수
 def sol(graph):
     global time
     
