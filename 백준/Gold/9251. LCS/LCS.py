@@ -1,14 +1,16 @@
-a = input()
-b = input()
+import sys
+input = sys.stdin.readline
 
-lst = [0]*(len(a)+1)
-for x in range(len(a)+1):
-    lst[x] = [0]*(len(b)+1)
+A1 = input().rstrip()
+A2 = input().rstrip()
 
-for x in range(len(a)):
-    for y in range(len(b)):
-        if a[len(a)-x-1] == b[len(b)-y-1]:
-            lst[len(a)-x-1][len(b)-y-1] = lst[len(a)-x][len(b)-y]+1
+dp = [[0]*(len(A2)+1) for _ in range(len(A1)+1)]
+
+for i in range(1, len(A1)+1):
+    for j in range(1, len(A2)+1):
+        if A2[j-1] == A1[i-1]:
+            dp[i][j] = dp[i-1][j-1]+1
         else:
-            lst[len(a)-x-1][len(b)-y-1] = max(lst[len(a)-x-1][len(b)-y],lst[len(a)-x][len(b)-y-1])
-print(lst[0][0])
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+print(dp[-1][-1])
