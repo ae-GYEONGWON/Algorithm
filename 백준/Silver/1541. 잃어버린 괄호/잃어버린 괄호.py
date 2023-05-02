@@ -1,17 +1,14 @@
-from collections import deque
+import sys
+input = sys.stdin.readline
 
-equation = deque(input().split('-'))
-answer = 0
-# print(equation)
-if equation[0] == '':
-    equation.popleft()
-    for x in equation.popleft().split('+'):
-        answer -= int(x)
-else :
-    for x in equation.popleft().split('+'):
-        answer += int(x)
-while equation:
-    x = equation.popleft().split('+')
-    for y in x:
-        answer -= int(y)
-print(answer)
+data = list(input().rstrip().split('-'))
+ans = 0
+for i in data[0].split('+'):
+    ans += int(i)
+if len(data) == 1:
+    print(ans)
+else:
+    for i in range(1, len(data)):
+        for j in data[i].split('+'):
+            ans -= int(j)
+    print(ans)
