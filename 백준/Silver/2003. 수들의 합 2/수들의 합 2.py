@@ -1,21 +1,25 @@
 import sys
-from itertools import accumulate
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-A = list(map(int, input().split()))
+n,m = map(int,input().split())
+a=list(map(int,input().split()))
 
-ans = 0
-start = 0
-while start < n:
-    temp = start
-    sum_num = A[temp]
-    while (temp+1) < n and (sum_num + A[temp+1]) <= m:
-        temp += 1
-        sum_num += A[temp]
+s=0
+e=0
+ans=a[0]
+tmp=0
+cnt=0
+while (e<n):
+    ans+=tmp
+    if (ans <= m):
+        if ans == m:
+            cnt+=1
+        e+=1
+        if e==n:
+            break
+        tmp=a[e]
+    else:
+        tmp=-a[s]
+        s+=1
 
-    if sum_num == m:
-        ans += 1
-    start += 1
-
-print(ans)
+print(cnt)
