@@ -2,7 +2,7 @@ import sys
 input =sys.stdin.readline
 
 n = int(input())
-num = input().rstrip()
+num = input()
 res = 0
 
 for i in range(n):
