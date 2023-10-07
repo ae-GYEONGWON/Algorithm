@@ -1,4 +1,4 @@
-def solution(n):    
+# def solution(n):    
     # # a[n] = a[n//2] or a[n-1]+1
     # # a[1]부터 a[n]까지 최소값을 업데이트 해보자
     # # a[1] = 1, a[2] = 1, a[3] = 2, a[4] = 1, a[5] = 2, a[6] = 2, a[7] = 3,
@@ -12,12 +12,16 @@ def solution(n):
     #         dp[i] = dp[(i-1)//2]+1
     # return dp[n]
 
-    answer = 0
+#     answer = 0
     
-    while True:
-        if n == 1:
-            return answer+1
+#     while True:
+#         if n == 1:
+#             return answer+1
         
-        if n % 2 != 0:
-            answer +=1
-        n //= 2        
+#         if n % 2 != 0:
+#             answer +=1
+#         n //= 2        
+
+
+def solution(n):
+    return bin(n)[2:].count('1')
