@@ -2,20 +2,18 @@ from collections import deque
 
 def solution(skill, skill_trees):
     answer = 0
-    for tree in skill_trees:
-        queue = deque(skill)
-        whether = True
         
-        for s in tree:
-            if s not in queue:
-                continue
-            else:
-                if s == queue[0]:
-                    queue.popleft()
+    for skill_tree in skill_trees:
+        skill_q = deque(skill)
+        is_possible = True
+        for s in skill_tree:
+            if s in skill_q:
+                if s == skill_q[0]:
+                    skill_q.popleft()
                 else:
-                    whether = False
+                    is_possible = False
                     break
-        if whether:
+        if is_possible:
             answer += 1
-            
+    
     return answer
