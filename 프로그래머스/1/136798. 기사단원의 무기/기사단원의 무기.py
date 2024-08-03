@@ -13,7 +13,6 @@ def solution(number, limit, power):
             divisor_cnt -= 1
         
         # 약수의 갯수를 조건에 맞게 답에 더해준다.
-        print(divisor_cnt)
         if divisor_cnt <= limit:
             answer += divisor_cnt
         else:
