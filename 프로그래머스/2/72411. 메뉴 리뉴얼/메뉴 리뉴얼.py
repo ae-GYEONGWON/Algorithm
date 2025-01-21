@@ -21,9 +21,6 @@ def solution(orders, course):
             combi_list = ["".join(c) for c in nCr]
             
             temp_orders_list = orders[:idx] + orders[idx+1:]
-            # print(orders)
-            # print(temp_orders_list)
-            # print()
             for combi in combi_list:
                 for temp_order in temp_orders_list:
                     if all([c in temp_order for c in combi]):
